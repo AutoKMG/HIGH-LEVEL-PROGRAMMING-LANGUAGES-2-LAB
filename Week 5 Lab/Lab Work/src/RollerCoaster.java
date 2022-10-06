@@ -1,6 +1,8 @@
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 
-public class RollerCoaster {
+public class RollerCoaster implements Comparable<RollerCoaster>{
     private String name;
     private String world;
     private int height;
@@ -12,10 +14,36 @@ public class RollerCoaster {
         this.height = height;
         this.time = time;
     }
-
+    /*
     @Override
     public String toString(){
-        return this.name + "(" + this.world + ")" + ": "+ this.time;
+        return String.format("%s (%s): %d",this.name, this.world, this.time);
+    }
+    */
+    /*
+    @Override
+    public String toString(){
+        StringBuilder builder = new StringBuilder();
+        builder.append(this.name);
+        builder.append(" (");
+        builder.append(this.world);
+        builder.append("): ");
+        builder.append(this.time);
+        return builder.toString();
+    }
+    */
+    @Override
+    public String toString(){
+        return new StringBuilder().append(this.name).append(" (").append(this.world).append("): ").append(this.time).toString();
+    }
+    public int compareTo(RollerCoaster o){
+        if (this.time != o.time){
+            return Integer.compare(this.time, o.time);
+        }
+        if (this.height != o.height){
+            return -Integer.compare(this.height, o.height);
+        }
+        return this.name.compareTo(o.name);
     }
 
     public static void main(String[] args) {
@@ -32,6 +60,10 @@ public class RollerCoaster {
                 Integer.parseInt(tokens[3])
             );
             coasters[i] = coaster;
+        }
+        Arrays.sort(coasters);
+        for (RollerCoaster coaster : coasters){
+            System.out.println(coaster);
         }
     }
 }
